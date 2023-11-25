@@ -21,6 +21,10 @@ function makeHeir() {
     document.getElementById("output").innerHTML = `Type: ${heirType}<br><br>Military: ${militaryRoll}<br>Authority: ${authorityRoll}<br>Piety: ${pietyRoll}<br><br>Life Expectancy: ${lifeExpectancy}`;
 }
 
+function clearHeir() {
+    document.getElementById("output").innerHTML = "";
+}
+
 function roll(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
