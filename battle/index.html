@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videntis Battle Simulator</title>
+</head>
+<body>
+    <script src="simulation.js"></script>
+
+    <div id="attacker">
+        <h1>Attacker</h1>
+        <input id="attackerTroops" type="number" value=0 min=0></input>
+        <label for="attackerTroops">Attacker</label>
+    </div>
+
+    <br>
+
+    <div id="defender">
+        <h1>Defender</h1>
+        <input id="defenderTroops" type="number" value=0 min=0></input>
+        <label for="defenderTroops">Defender</label>
+    </div>
+
+    <button onclick="simulate()">Simulate</button>
+
+    <div id="result">
+        <h1>Result</h1>
+        <div id="output"></div>
+    </div>
+</body>
+</html>
