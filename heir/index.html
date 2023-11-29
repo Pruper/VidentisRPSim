@@ -9,8 +9,13 @@
     <script src="simulation.js"></script>
 
     <h1>Settings</h1>
-    <input type="checkbox" id="gauranteeHero" onchange="clearHeir()">
+
+    <input type="checkbox" checked="true" id="notSurviveChance" onchange="toggled('notSurviveChance')">
+    <label for="notSurviveChance">Include Chance Of Not Surviving</label>
+    <br>
+    <input type="checkbox" id="gauranteeHero" onchange="toggled('gauranteeHero')">
     <label for="gauranteeHero">Always Generate Hero</label>
+
     <br><br><br>
     <button onclick="makeHeir()">Generate a Random Heir</button>
 
