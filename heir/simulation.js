@@ -4,9 +4,9 @@ function makeHeir() {
 
     if (isHero) {
         heirType = "Hero";
-        militaryRoll = roll(7, 15);
-        authorityRoll = roll(7, 15);
-        pietyRoll = roll(7, 15);
+        militaryRoll = roll(8, 15);
+        authorityRoll = roll(8, 15);
+        pietyRoll = roll(8, 15);
     } else {
         heirType = "Normal";
         militaryRoll = roll(1, 10);
