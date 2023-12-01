@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videntis Battle Simulator</title>
 </head>
+
 <body>
     <script src="simulation.js"></script>
 
     <div id="attacker">
         <h1>Attacker</h1>
         <input id="attackerTroops" type="number" value=0 min=0></input>
-        <label for="attackerTroops">Attacker</label>
+        <label for="attackerTroops">Attacker Troops</label>
+        <br>
+        <select id="attackModifier">
+            <option value=""></option>
+            <option value="river">Crossing River (-1)</option>
+            <option value="ocean">Amphibious Landing (-2)</option>
+        </select>
+        <label for="attackerTroops">Debuff</label>
     </div>
 
     <br>
@@ -19,7 +28,7 @@
     <div id="defender">
         <h1>Defender</h1>
         <input id="defenderTroops" type="number" value=0 min=0></input>
-        <label for="defenderTroops">Defender</label>
+        <label for="defenderTroops">Defender Troops</label>
     </div>
 
     <button onclick="simulate()">Simulate</button>
@@ -29,4 +38,5 @@
         <div id="output"></div>
     </div>
 </body>
+
 </html>

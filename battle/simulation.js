@@ -18,6 +18,11 @@ class Log {
     }
 }
 
+let attackerModifiersById = {
+    "river": { name: "Crossing River", value: -1 },
+    "ocean": { name: "Amphibious Landing", value: -2 }
+}
+
 function simulate() {
     let log = new Log();
 
@@ -34,7 +39,20 @@ function simulate() {
     log.addEntry("Difference is " + difference + " points, rolling " + Math.max(1, difference) + " dice for each.");
     difference = Math.max(1, difference);
 
-    let attackerBonus = rollMultiple(1, 6, difference);
+    let attackModifier = 0;
+    let attackModifierRollAmount = Math.min(difference, defenderTroops);
+    let normalRollAmount = difference - attackModifierRollAmount;
+    console.log(attackModifierRollAmount);
+    if (document.getElementById("attackModifier").value != "") {
+        let modifierId = document.getElementById("attackModifier").value;
+        attackModifier = attackerModifiersById[modifierId].value;
+        log.addEntry("Attacker has modifier: " + attackerModifiersById[modifierId].name + " (" + attackerModifiersById[modifierId].value + " per roll for " + attackModifierRollAmount + " rolls)");
+    }
+
+    let attackerModifierBonus = rollMultipleWithModifier(1, 6, attackModifierRollAmount, attackModifier, 0, 9999);
+    let attackerNormalBonus = rollMultiple(1, 6, normalRollAmount);
+    let attackerBonus = { result: attackerModifierBonus.result + attackerNormalBonus.result, rolls: attackerModifierBonus.rolls.concat(attackerNormalBonus.rolls)}
+
     attackerPoints += attackerBonus.result;
     log.addEntry("Attacker bonus roll was " + attackerBonus.result + " [" + attackerBonus.rolls + "], for a total of " + attackerPoints);
 
@@ -68,7 +86,21 @@ function rollMultiple(min, max, times) {
     }
 
     // rolls.sort(function(a, b) { return b - a; });
-    return { result: cumulative, rolls: rolls.toString() };
+    return { result: cumulative, rolls: rolls };
+}
+
+function rollMultipleWithModifier(min, max, times, modifier, absoluteMin, absoluteMax) {
+    let cumulative = 0;
+    let rolls = [];
+
+    for (let i = 0; i < times; i++) {
+        let r = Math.min(absoluteMax, Math.max(absoluteMin, roll(min, max) + modifier));
+        cumulative += r;
+        rolls.push(r);
+    }
+
+    // rolls.sort(function(a, b) { return b - a; });
+    return { result: cumulative, rolls: rolls };
 }
 
 function troopsToPoints(troops) {
