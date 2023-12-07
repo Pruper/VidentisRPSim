@@ -9,15 +9,22 @@ function makeHeir() {
 
     let isHero = roll(1, 1000) == 1 || document.getElementById("gauranteeHero").checked;
     let heirType, militaryRoll, authorityRoll, pietyRoll;
+    let bonusRolls = [];
 
     if (isHero) {
         heirType = "Hero";
-        militaryRoll = roll(8, 15);
+        militaryRoll = roll(25, 40);
         authorityRoll = roll(8, 15);
         pietyRoll = roll(8, 15);
+        
+        let numberOfBonuses = roll(1, 8);
+        for (let i = 0; i < numberOfBonuses; i++) {
+            bonusRolls.push(roll(1, 200));
+        }
+
     } else {
         heirType = "Normal";
-        militaryRoll = roll(1, 10);
+        militaryRoll = roll(1, 20);
         authorityRoll = roll(1, 10);
         pietyRoll = roll(1, 10);
     }
@@ -26,7 +33,7 @@ function makeHeir() {
 
     // console.log("TYPE: " + heirType + ", MILITARY: " + militaryRoll + ", AUTHORITY: " + authorityRoll + ", PIETY: " + pietyRoll);
 
-    document.getElementById("output").innerHTML = `Type: ${heirType}<br><br>Military: ${militaryRoll}<br>Authority: ${authorityRoll}<br>Piety: ${pietyRoll}<br><br>Gender: ${genderSymbol(isMale) + " " + genderName(isMale)}<br>Life Expectancy: ${lifeExpectancy}`;
+    document.getElementById("output").innerHTML = `Type: ${heirType}<br><br>Military: ${militaryRoll}<br>Authority: ${authorityRoll}<br>Piety: ${pietyRoll}${bonusRolls.length > 0 ? "<br><br>Bonuses: " + bonusRolls : ""}<br><br>Gender: ${genderSymbol(isMale) + " " + genderName(isMale)}<br>Life Expectancy: ${lifeExpectancy}`;
 }
 
 function genderSymbol(isMale) {
