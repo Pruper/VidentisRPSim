@@ -1,6 +1,7 @@
 function makeHeir() {
     let isMale = roll(0, 1) == 0;
     let survived = roll(0, 100) > 50 || !document.getElementById("notSurviveChance").checked;
+    let legacyMilitary = document.getElementById("legacyMilitarySkill").checked;
 
     if (!survived) {
         document.getElementById("output").innerHTML = `Gender: ${genderSymbol(isMale) + " " + genderName(isMale)}<br>Life Expectancy: ${roll(0, 3)} (did not survive...)`;
@@ -13,7 +14,7 @@ function makeHeir() {
 
     if (isHero) {
         heirType = "Hero";
-        militaryRoll = roll(25, 40);
+        militaryRoll = legacyMilitary ? roll(8, 15) : roll(25, 40);
         authorityRoll = roll(8, 15);
         pietyRoll = roll(8, 15);
         
@@ -24,7 +25,7 @@ function makeHeir() {
 
     } else {
         heirType = "Normal";
-        militaryRoll = roll(1, 20);
+        militaryRoll = legacyMilitary ? roll(1, 10) : roll(1, 20);
         authorityRoll = roll(1, 10);
         pietyRoll = roll(1, 10);
     }
