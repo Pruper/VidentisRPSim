@@ -1,6 +1,7 @@
 function makeHeir() {
     let isMale = roll(0, 1) == 0;
     let survived = roll(0, 100) > 50 || !document.getElementById("notSurviveChance").checked;
+    let hasRandomAge = document.getElementById("hasRandomAge").checked;
     let legacyMilitary = document.getElementById("legacyMilitarySkill").checked;
 
     if (!survived) {
@@ -31,10 +32,12 @@ function makeHeir() {
     }
 
     let lifeExpectancy = getAge();
+    let randomAge = 0;
+    if (hasRandomAge) randomAge = roll(22, lifeExpectancy);
 
     // console.log("TYPE: " + heirType + ", MILITARY: " + militaryRoll + ", AUTHORITY: " + authorityRoll + ", PIETY: " + pietyRoll);
 
-    document.getElementById("output").innerHTML = `Type: ${heirType}<br><br>Military: ${militaryRoll}<br>Authority: ${authorityRoll}<br>Piety: ${pietyRoll}${bonusRolls.length > 0 ? "<br><br>Bonuses: " + bonusRolls : ""}<br><br>Gender: ${genderSymbol(isMale) + " " + genderName(isMale)}<br>Life Expectancy: ${lifeExpectancy}`;
+    document.getElementById("output").innerHTML = `Type: ${heirType}<br><br>Military: ${militaryRoll}<br>Authority: ${authorityRoll}<br>Piety: ${pietyRoll}${bonusRolls.length > 0 ? "<br><br>Bonuses: " + bonusRolls : ""}<br>${hasRandomAge ? "Current Age: " + randomAge + " years old<br>" : ""}<br>Gender: ${genderSymbol(isMale) + " " + genderName(isMale)}<br>Life Expectancy: ${lifeExpectancy}`;
 }
 
 function genderSymbol(isMale) {
@@ -51,6 +54,12 @@ function getColor(isMale) {
 
 function toggled(box) {
     document.getElementById("output").innerHTML = "";
+
+    if (box == "hasRandomAge" && document.getElementById("hasRandomAge").checked) {
+        document.getElementById("notSurviveChance").checked = false;
+    } else if (box == "notSurviveChance" && document.getElementById("hasRandomAge").checked) {
+        document.getElementById("hasRandomAge").checked = false;
+    }
 }
 
 function roll(min, max) {
